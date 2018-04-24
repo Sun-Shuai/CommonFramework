@@ -1,8 +1,8 @@
 package com.sunshuai.commonframework.account.login;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
-import com.sunshuai.commonframework.data.local.database.Database;
-import com.sunshuai.commonframework.data.local.database.DatabaseImpl;
+import com.sunshuai.commonframework.mvpmodel.database.Database;
+import com.sunshuai.commonframework.mvpmodel.database.DatabaseImpl;
 
 /**
  * Created by sunshuai on 2018/4/24
