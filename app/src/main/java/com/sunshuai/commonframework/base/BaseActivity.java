@@ -4,8 +4,11 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
+
+import com.hannesdorfmann.mosby3.mvp.MvpActivity;
+import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
+import com.hannesdorfmann.mosby3.mvp.MvpView;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -17,8 +20,7 @@ import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 
-public abstract class
-BaseActivity extends AppCompatActivity implements ISupportActivity {
+public abstract class BaseActivity<V extends MvpView,P extends MvpPresenter<V>> extends MvpActivity<V,P> implements ISupportActivity {
 
     protected Unbinder mBinder;
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);

@@ -1,11 +1,14 @@
 package com.sunshuai.commonframework;
 
-import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
+import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 import com.sunshuai.commonframework.base.BaseActivity;
-import com.sunshuai.commonframework.base.BaseFragment;
 import com.sunshuai.commonframework.home.HomeFragment;
+
+import me.yokeyword.fragmentation.ISupportFragment;
 
 
 public class MainActivity extends BaseActivity {
@@ -16,7 +19,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        BaseFragment fragment = findFragment(HomeFragment.class);
+        ISupportFragment fragment = findFragment(HomeFragment.class);
         if (fragment == null) {
             loadRootFragment(R.id.fl_container, HomeFragment.newInstance());
         }
@@ -40,5 +43,12 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(this, "再次点击退出", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+
+    @NonNull
+    @Override
+    public MvpPresenter createPresenter() {
+        return new MvpBasePresenter();
     }
 }

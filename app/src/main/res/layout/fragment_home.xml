@@ -14,8 +14,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_login"
-        android:text="Login"
+        android:id="@+id/btn_goLogin"
+        android:text="登录"
         android:layout_gravity="bottom|center" />
 
 </FrameLayout>
