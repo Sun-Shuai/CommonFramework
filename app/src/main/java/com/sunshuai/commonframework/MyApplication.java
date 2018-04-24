@@ -2,6 +2,9 @@ package com.sunshuai.commonframework;
 
 import android.app.Application;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 import com.sunshuai.commonframework.bean.MyObjectBox;
 
 import io.objectbox.BoxStore;
@@ -17,7 +20,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        boxStore = MyObjectBox.builder().androidContext(MyApplication.this).build();
+        initObjectBox();
+        initLogger();
     }
 
     public static MyApplication getInstance() {
@@ -26,5 +30,19 @@ public class MyApplication extends Application {
 
     public BoxStore getBoxStore() {
         return boxStore;
+    }
+
+    private void initObjectBox() {
+        boxStore = MyObjectBox.builder().androidContext(MyApplication.this).build();
+    }
+
+
+    private void initLogger() {
+        Logger.addLogAdapter(new AndroidLogAdapter(
+                PrettyFormatStrategy
+                        .newBuilder()
+                        .tag("Logger")
+                        .build())
+        );
     }
 }
