@@ -258,11 +258,23 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
         return SupportHelper.findFragment(getChildFragmentManager(), fragmentClass);
     }
 
+    Toast toast;
+
     protected void showToast(String text) {
-        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+        if (toast == null) {
+            toast = Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT);
+        } else {
+            toast.setText(text);
+        }
+        toast.show();
     }
 
     protected void showLongToast(String text) {
-        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+        if (toast == null) {
+            toast = Toast.makeText(getActivity(), text, Toast.LENGTH_LONG);
+        } else {
+            toast.setText(text);
+        }
+        toast.show();
     }
 }

@@ -2,6 +2,7 @@ package com.sunshuai.commonframework.account.login;
 
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -26,7 +27,11 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                getPresenter().login(editUsername.getText().toString(), editPassword.getText().toString());
+                if (TextUtils.isEmpty(editUsername.getText().toString())) {
+                    showToast("用户名不能为空");
+                } else {
+                    getPresenter().login(editUsername.getText().toString(), editPassword.getText().toString());
+                }
                 break;
             case R.id.btn_goRegister:
                 start(RegisterFragment.newInstance());
