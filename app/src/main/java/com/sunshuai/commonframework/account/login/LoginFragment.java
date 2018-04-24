@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.account.register.RegisterFragment;
@@ -52,12 +51,12 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
 
     @Override
     public void showSuccessMsg() {
-        Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
+        showToast("登录成功");
     }
 
     @Override
     public void showFailedMsg(String reason) {
-        Toast.makeText(getActivity(), "登录失败：" + reason, Toast.LENGTH_SHORT).show();
+        showToast("登录失败：" + reason);
     }
 
     @Override

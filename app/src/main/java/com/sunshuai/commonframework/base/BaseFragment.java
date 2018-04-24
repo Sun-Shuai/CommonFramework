@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Toast;
 
 import com.hannesdorfmann.mosby3.mvp.MvpFragment;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
@@ -22,7 +23,7 @@ import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 
-public abstract class BaseFragment<V extends MvpView,P extends MvpPresenter<V>> extends MvpFragment<V,P> implements ISupportFragment {
+public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>> extends MvpFragment<V, P> implements ISupportFragment {
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
     protected FragmentActivity _mActivity;
 
@@ -255,5 +256,13 @@ public abstract class BaseFragment<V extends MvpView,P extends MvpPresenter<V>> 
 
     public <T extends ISupportFragment> T findChildFragment(Class<T> fragmentClass) {
         return SupportHelper.findFragment(getChildFragmentManager(), fragmentClass);
+    }
+
+    protected void showToast(String text) {
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showLongToast(String text) {
+        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
     }
 }

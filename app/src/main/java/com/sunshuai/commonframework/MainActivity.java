@@ -1,7 +1,6 @@
 package com.sunshuai.commonframework;
 
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
@@ -43,7 +42,7 @@ public class MainActivity extends BaseActivity {
                 finish();
             } else {
                 TOUCH_TIME = System.currentTimeMillis();
-                Toast.makeText(this, "再次点击退出", Toast.LENGTH_SHORT).show();
+                showToast("再次点击退出");
             }
         }
     }
