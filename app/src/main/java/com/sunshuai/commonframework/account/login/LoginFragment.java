@@ -56,8 +56,8 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
     }
 
     @Override
-    public void showFailedMsg() {
-        Toast.makeText(getActivity(), "登录失败", Toast.LENGTH_SHORT).show();
+    public void showFailedMsg(String reason) {
+        Toast.makeText(getActivity(), "登录失败：" + reason, Toast.LENGTH_SHORT).show();
     }
 
     @Override
