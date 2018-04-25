@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.hannesdorfmann.mosby3.mvp.MvpFragment;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
+import com.sunshuai.commonframework.R;
 
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.ExtraTransaction;
@@ -26,6 +28,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>> extends MvpFragment<V, P> implements ISupportFragment {
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
     protected FragmentActivity _mActivity;
+    protected OnFragmentOpenDrawerListener mOpenDraweListener;
 
 
     @Override
@@ -62,6 +65,22 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
     }
 
 
+    protected void initToolbarNav(Toolbar toolbar) {
+        initToolbarNav(toolbar, false);
+    }
+
+    protected void initToolbarNav(Toolbar toolbar, boolean isHome) {
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOpenDraweListener != null) {
+                    mOpenDraweListener.onOpenDrawer();
+                }
+            }
+        });
+    }
+
     @Override
     public SupportFragmentDelegate getSupportDelegate() {
         return mDelegate;
@@ -77,6 +96,9 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
         super.onAttach(activity);
         mDelegate.onAttach(activity);
         _mActivity = mDelegate.getActivity();
+        if (activity instanceof OnFragmentOpenDrawerListener) {
+            mOpenDraweListener = (OnFragmentOpenDrawerListener) activity;
+        }
     }
 
 
@@ -276,5 +298,9 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
             toast.setText(text);
         }
         toast.show();
+    }
+
+    public interface OnFragmentOpenDrawerListener {
+        void onOpenDrawer();
     }
 }
