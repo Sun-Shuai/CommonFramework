@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="小明"
+            android:text="未登录"
             android:textSize="16sp" />
 
     </LinearLayout>

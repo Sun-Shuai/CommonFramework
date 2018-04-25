@@ -36,7 +36,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
-
     private TextView txtName;
     private ImageView imageIcon;
 
@@ -65,7 +64,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 drawerLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        start(LoginFragment.newInstance());
+                        start(LoginFragment.newInstance(), ISupportFragment.SINGLETASK);
                     }
                 }, 250);
             }
@@ -79,6 +78,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressedSupport() {
+
+        // TODO: 2018/4/25 shouhui抽屉
 
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             pop();
@@ -102,7 +103,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
-
         drawerLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -117,25 +117,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     newBundle.putString("from", "From:" + topFragment.getClass().getSimpleName());
                     fragment.putNewBundle(newBundle);
                     myHome.start(fragment, ISupportFragment.SINGLETASK);
-//                } else if (id == R.id.nav_discover) {
-//                    DiscoverFragment fragment = findFragment(DiscoverFragment.class);
-//                    if (fragment == null) {
-//                        myHome.startWithPopTo(DiscoverFragment.newInstance(), HomeFragment.class, false);
-//                    } else {
-//                        // 如果已经在栈内,则以SingleTask模式start
-//                        myHome.start(fragment, SupportFragment.SINGLETASK);
-//                    }
-//                } else if (id == R.id.nav_shop) {
-//                    ShopFragment fragment = findFragment(ShopFragment.class);
-//                    if (fragment == null) {
-//                        myHome.startWithPopTo(ShopFragment.newInstance(), HomeFragment.class, false);
-//                    } else {
-//                        // 如果已经在栈内,则以SingleTask模式start,也可以用popTo
-////                        start(fragment, SupportFragment.SINGLETASK);
-//                        myHome.popTo(ShopFragment.class, false);
-//                    }
-                } else if (id == R.id.nav_login) {
-                    start(LoginFragment.newInstance());
                 }
             }
         }, 300);
