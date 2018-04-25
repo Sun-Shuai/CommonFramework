@@ -78,19 +78,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressedSupport() {
-
-        // TODO: 2018/4/25 shouhui抽屉
-
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            pop();
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
-                finish();
+            ISupportFragment topFragment = getTopFragment();
+
+            if (topFragment instanceof BaseFragment) {
+                navigationView.setCheckedItem(R.id.nav_home);
+            }
+
+            if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+                pop();
             } else {
-                TOUCH_TIME = System.currentTimeMillis();
-                showToast("再次点击退出");
+                if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+                    finish();
+                } else {
+                    TOUCH_TIME = System.currentTimeMillis();
+                    showToast("再次点击退出");
+                }
             }
         }
+
     }
 
 

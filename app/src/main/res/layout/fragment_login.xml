@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/root"
     tools:context=".home.HomeFragment">
 
     <ImageView
@@ -150,9 +150,9 @@
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_height="45dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_btn_login_selected"
             android:text="登录"
@@ -163,26 +163,25 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/txt_regist"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:layout_weight="1"
                 android:text="注册新用户"
                 android:textColor="@color/grey"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/txt_forget_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="21dp"
                 android:text="忘记密码"
                 android:textColor="@color/grey"
                 android:textSize="14sp" />
