@@ -9,18 +9,15 @@ import com.sunshuai.commonframework.mvpmodel.database.DatabaseImpl;
  */
 public class LoginPresenter extends MvpBasePresenter<LoginView> {
     public void login(String username, String password) {
-        getView().showLoading();
         DatabaseImpl.getInstance().login(username, password, new Database.Callback() {
             @Override
             public void onSuccess() {
-                getView().hideLoading();
-                getView().showSuccessMsg();
+                getView().loginSuccess();
             }
 
             @Override
             public void onFailed(String reason) {
-                getView().hideLoading();
-                getView().showFailedMsg(reason);
+                getView().loginFailed(reason);
             }
         });
     }

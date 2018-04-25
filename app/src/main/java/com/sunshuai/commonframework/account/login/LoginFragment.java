@@ -17,10 +17,14 @@ import android.widget.ProgressBar;
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.account.register.RegisterFragment;
 import com.sunshuai.commonframework.base.BaseFragment;
+import com.sunshuai.commonframework.home.HomeFragment;
 import com.sunshuai.commonframework.widget.DrawableTextView;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.yokeyword.fragmentation.ISupportFragment;
 
 public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> implements LoginView, KeyboardWatcher.SoftKeyboardStateListener {
 
@@ -28,7 +32,6 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
     private KeyboardWatcher keyboardWatcher;
     private int screenHeight = 0;//屏幕高度
     private float scale = 0.8f; //logo缩放比例
-    private boolean flag = false;
 
     @BindView(R.id.logo)
     DrawableTextView logo;
@@ -57,6 +60,12 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
                 if (TextUtils.isEmpty(editUsername.getText().toString())) {
                     showToast("用户名不能为空");
                 } else {
+                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.VISIBLE);
+                        }
+                    });
                     getPresenter().login(editUsername.getText().toString(), editPassword.getText().toString());
                 }
                 break;
@@ -143,25 +152,28 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
         return new LoginFragment();
     }
 
-
     @Override
-    public void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideLoading() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showSuccessMsg() {
+    public void loginSuccess() {
+        hideSoftInput();
         showToast("登录成功");
+        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+        start(HomeFragment.newInstance(), ISupportFragment.SINGLETASK);
     }
 
     @Override
-    public void showFailedMsg(String reason) {
+    public void loginFailed(String reason) {
         showToast("登录失败：" + reason);
+        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -195,7 +207,6 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
             mAnimatorTranslateY.setInterpolator(new AccelerateDecelerateInterpolator());
             mAnimatorTranslateY.start();
             zoomIn(logo, keyboardSize - bottom);
-
         }
     }
 
@@ -208,7 +219,6 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
         zoomOut(logo);
     }
 
-
     public void zoomIn(final View view, float dist) {
         view.setPivotY(view.getHeight());
         view.setPivotX(view.getWidth() / 2);
@@ -216,9 +226,7 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
         ObjectAnimator mAnimatorScaleX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, scale);
         ObjectAnimator mAnimatorScaleY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, scale);
         ObjectAnimator mAnimatorTranslateY = ObjectAnimator.ofFloat(view, "translationY", 0.0f, -dist);
-
         mAnimatorSet.play(mAnimatorTranslateY).with(mAnimatorScaleX).with(mAnimatorScaleY);
-
         mAnimatorSet.setDuration(300);
         mAnimatorSet.start();
 
@@ -231,11 +239,9 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
         view.setPivotY(view.getHeight());
         view.setPivotX(view.getWidth() / 2);
         AnimatorSet mAnimatorSet = new AnimatorSet();
-
         ObjectAnimator mAnimatorScaleX = ObjectAnimator.ofFloat(view, "scaleX", scale, 1.0f);
         ObjectAnimator mAnimatorScaleY = ObjectAnimator.ofFloat(view, "scaleY", scale, 1.0f);
         ObjectAnimator mAnimatorTranslateY = ObjectAnimator.ofFloat(view, "translationY", view.getTranslationY(), 0);
-
         mAnimatorSet.play(mAnimatorTranslateY).with(mAnimatorScaleX).with(mAnimatorScaleY);
         mAnimatorSet.setDuration(300);
         mAnimatorSet.start();

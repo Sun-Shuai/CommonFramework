@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.base.BaseFragment;
 
@@ -71,13 +72,13 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action0:
-                                Toast.makeText(_mActivity, "1", Toast.LENGTH_SHORT).show();
+                                showToast("1");
                                 break;
                             case R.id.action1:
-                                Toast.makeText(_mActivity, "2", Toast.LENGTH_SHORT).show();
+                                showToast("2");
                                 break;
                             case R.id.action2:
-                                Toast.makeText(_mActivity, "3", Toast.LENGTH_SHORT).show();
+                                showToast("3");
                                 break;
                         }
                         popupMenu.dismiss();
@@ -90,9 +91,4 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         return true;
     }
 
-    @Override
-    public void onNewBundle(Bundle args) {
-        super.onNewBundle(args);
-        Toast.makeText(_mActivity, args.getString("from"), Toast.LENGTH_SHORT).show();
-    }
 }
