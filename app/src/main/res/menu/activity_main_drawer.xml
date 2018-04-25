@@ -16,13 +16,18 @@
             android:title="shop" />
     </group>
 
-    <item android:title="system">
+    <item android:title="分组1">
         <menu>
             <item
                 android:id="@+id/nav_login"
                 android:icon="@drawable/ic_discover_white_24dp"
                 android:title="login" />
+            <item
+                android:id="@+id/nav_item2"
+                android:icon="@drawable/ic_discover_white_24dp"
+                android:title="item2" />
         </menu>
     </item>
 
 </menu>
+
