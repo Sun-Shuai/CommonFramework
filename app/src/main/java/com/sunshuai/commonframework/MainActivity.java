@@ -18,6 +18,7 @@ import com.sunshuai.commonframework.account.login.LoginFragment;
 import com.sunshuai.commonframework.base.BaseActivity;
 import com.sunshuai.commonframework.base.BaseFragment;
 import com.sunshuai.commonframework.home.HomeFragment;
+import com.sunshuai.commonframework.splash.SplashFragment;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
@@ -42,9 +43,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void initView() {
         super.initView();
-        ISupportFragment fragment = findFragment(HomeFragment.class);
+        ISupportFragment fragment = findFragment(SplashFragment.class);
         if (fragment == null) {
-            loadRootFragment(R.id.fl_container, HomeFragment.newInstance());
+            loadRootFragment(R.id.fl_container, SplashFragment.newInstance());
         }
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
