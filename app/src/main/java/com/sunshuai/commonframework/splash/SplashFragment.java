@@ -27,7 +27,7 @@ public class SplashFragment extends BaseFragment<SplashView, SplashPresenter> im
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                replaceFragment(HomeFragment.newInstance(), false);
+                startWithPop(HomeFragment.newInstance());
             }
         }, delayMills);
         return super.onCreateView(inflater, container, savedInstanceState);
