@@ -15,13 +15,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.sunshuai.commonframework.R;
-import com.sunshuai.commonframework.utils.KeyboardWatcher;
 import com.sunshuai.commonframework.account.register.RegisterFragment;
 import com.sunshuai.commonframework.base.BaseFragment;
 import com.sunshuai.commonframework.home.HomeFragment;
+import com.sunshuai.commonframework.utils.KeyboardWatcher;
 import com.sunshuai.commonframework.widget.DrawableTextView;
-
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,12 +55,7 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
                 if (TextUtils.isEmpty(editUsername.getText().toString())) {
                     showToast("用户名不能为空");
                 } else {
-                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.setVisibility(View.VISIBLE);
-                        }
-                    });
+                    progressBar.setVisibility(View.VISIBLE);
                     getPresenter().login(editUsername.getText().toString(), editPassword.getText().toString());
                 }
                 break;
@@ -153,25 +146,16 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
     public void loginSuccess() {
         hideSoftInput();
         showToast("登录成功");
-        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+        progressBar.setVisibility(View.GONE);
         start(HomeFragment.newInstance(), ISupportFragment.SINGLETASK);
     }
 
     @Override
     public void loginFailed(String reason) {
+        progressBar.setVisibility(View.GONE);
         showToast("登录失败：" + reason);
-        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
     }
+
 
     @Override
     protected int getLayoutId() {

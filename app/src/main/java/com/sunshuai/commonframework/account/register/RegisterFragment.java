@@ -139,6 +139,7 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
 
     @Override
     public void registerSuccess() {
+        hideSoftInput();
         progressBar.setVisibility(View.GONE);
         showToast("注册成功");
         start(LoginFragment.newInstance(), SINGLETASK);
