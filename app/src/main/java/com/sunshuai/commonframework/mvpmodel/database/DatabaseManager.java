@@ -11,31 +11,30 @@ import io.objectbox.Box;
 /**
  * Created by sunshuai on 2018/4/22
  */
-public class DatabaseImpl implements Database {
+public class DatabaseManager {
 
     private final String TAG = this.getClass().getSimpleName();
 
-    private static volatile DatabaseImpl instance;
+    private static volatile DatabaseManager instance;
 
     private Box<User> userBox;
 
 
-    private DatabaseImpl() {
+    private DatabaseManager() {
         userBox = MyApplication.getInstance().getBoxStore().boxFor(User.class);
     }
 
-    public static DatabaseImpl getInstance() {
+    public static DatabaseManager getInstance() {
         if (instance == null) {
-            synchronized (DatabaseImpl.class) {
+            synchronized (DatabaseManager.class) {
                 if (instance == null) {
-                    instance = new DatabaseImpl();
+                    instance = new DatabaseManager();
                 }
             }
         }
         return instance;
     }
 
-    @Override
     public void login(String username, String password, Callback callBack) {
         List<User> users = userBox.query().equal(User_.username, username).build().find();
         if (users.size() == 0) {
@@ -49,7 +48,6 @@ public class DatabaseImpl implements Database {
         }
     }
 
-    @Override
     public void register(String username, String password, Callback callback) {
         List<User> users = userBox.query().equal(User_.username, username).build().find();
         if (users.size() == 0) {
@@ -58,6 +56,13 @@ public class DatabaseImpl implements Database {
         } else {
             callback.onFailed("用户已存在");
         }
+    }
+
+
+    public interface Callback {
+        void onSuccess();
+
+        void onFailed(String reason);
     }
 
 

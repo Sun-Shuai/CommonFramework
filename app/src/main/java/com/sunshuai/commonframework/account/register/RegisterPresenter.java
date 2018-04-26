@@ -1,8 +1,7 @@
 package com.sunshuai.commonframework.account.register;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
-import com.sunshuai.commonframework.mvpmodel.database.Database;
-import com.sunshuai.commonframework.mvpmodel.database.DatabaseImpl;
+import com.sunshuai.commonframework.mvpmodel.database.DatabaseManager;
 
 /**
  * Created by sunshuai on 2018/4/24
@@ -10,7 +9,7 @@ import com.sunshuai.commonframework.mvpmodel.database.DatabaseImpl;
 public class RegisterPresenter extends MvpBasePresenter<RegisterView> {
 
     public void register(String username,String password){
-        DatabaseImpl.getInstance().register(username, password, new Database.Callback() {
+        DatabaseManager.getInstance().register(username, password, new DatabaseManager.Callback() {
             @Override
             public void onSuccess() {
                 getView().registerSuccess();

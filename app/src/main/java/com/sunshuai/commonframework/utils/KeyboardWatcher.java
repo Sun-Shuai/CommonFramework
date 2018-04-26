@@ -1,4 +1,4 @@
-package com.sunshuai.commonframework.account;
+package com.sunshuai.commonframework.utils;
 
 import android.app.Activity;
 import android.graphics.Rect;

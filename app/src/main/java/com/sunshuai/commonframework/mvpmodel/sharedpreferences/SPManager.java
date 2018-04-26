@@ -6,24 +6,24 @@ import android.content.SharedPreferences;
 /**
  * Created by sunshuai on 2018/4/24
  */
-public class SPDataImpl implements SPData {
+public class SPManager {
 
     private static final String SP_NAME = "sp_date";
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-    private static volatile SPDataImpl instance;
+    private static volatile SPManager instance;
 
-    private SPDataImpl(Context context) {
+    private SPManager(Context context) {
         sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         editor = sp.edit();
 
     }
 
-    public static SPDataImpl getInstance(Context context) {
+    public static SPManager getInstance(Context context) {
         if (instance == null) {
-            synchronized (SPDataImpl.class) {
+            synchronized (SPManager.class) {
                 if (instance == null) {
-                    instance = new SPDataImpl(context);
+                    instance = new SPManager(context);
                 }
             }
         }
@@ -31,12 +31,10 @@ public class SPDataImpl implements SPData {
     }
 
 
-    @Override
     public boolean isFirstEnter() {
         return sp.getBoolean("isFirstEnter", true);
     }
 
-    @Override
     public void setFirstEnter(boolean isFirst) {
         editor.putBoolean("isFirstEnter", isFirst);
         editor.apply();

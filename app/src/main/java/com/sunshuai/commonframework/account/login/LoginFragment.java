@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.sunshuai.commonframework.R;
-import com.sunshuai.commonframework.account.KeyboardWatcher;
+import com.sunshuai.commonframework.utils.KeyboardWatcher;
 import com.sunshuai.commonframework.account.register.RegisterFragment;
 import com.sunshuai.commonframework.base.BaseFragment;
 import com.sunshuai.commonframework.home.HomeFragment;
