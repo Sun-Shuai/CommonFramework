@@ -9,10 +9,5 @@ import com.sunshuai.commonframework.mvpmodel.sharedpreferences.SPManager;
  */
 public class HomePresenter extends MvpBasePresenter<HomeView> {
 
-    void checkIsFirst() {
-        if (SPManager.getInstance(MyApplication.getInstance().getApplicationContext()).isFirstEnter()) {
-            getView().showGuidePage();
-            SPManager.getInstance(MyApplication.getInstance().getApplicationContext()).setFirstEnter(false);
-        }
-    }
+
 }

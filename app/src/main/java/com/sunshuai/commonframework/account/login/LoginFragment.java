@@ -3,7 +3,9 @@ package com.sunshuai.commonframework.account.login;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -13,6 +15,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.account.register.RegisterFragment;
@@ -32,6 +35,9 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
     private int screenHeight = 0;//屏幕高度
     private float scale = 0.8f; //logo缩放比例
 
+
+    private TextView tvUsername;
+
     @BindView(R.id.logo)
     DrawableTextView logo;
     @BindView(R.id.edit_username)
@@ -41,12 +47,11 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
     @BindView(R.id.pb_loading)
     ProgressBar progressBar;
     @BindView(R.id.iv_clean_phone)
-    ImageView iv_clean_phone;
+    ImageView ivCleanPhone;
     @BindView(R.id.iv_clean_password)
-    ImageView clean_password;
+    ImageView ivCleanPassword;
     @BindView(R.id.body)
     View body;
-
 
     @OnClick({R.id.btn_login, R.id.txt_regist, R.id.close, R.id.iv_clean_phone, R.id.iv_clean_password})
     public void onClick(View view) {
@@ -69,7 +74,11 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
                 editPassword.setText("");
                 break;
             case R.id.close:
-                pop();
+                if (getActivity().getSupportFragmentManager().getBackStackEntryCount() == 1) {
+                    startWithPop(HomeFragment.newInstance());
+                } else {
+                    pop();
+                }
                 break;
 
             default:
@@ -83,6 +92,12 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
         keyboardWatcher = new KeyboardWatcher(getActivity().findViewById(Window.ID_ANDROID_CONTENT));
         keyboardWatcher.addSoftKeyboardStateListener(this);
         screenHeight = this.getResources().getDisplayMetrics().heightPixels; //获取屏幕高度
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        tvUsername = getActivity().findViewById(R.id.tv_name);
     }
 
     @Override
@@ -101,10 +116,10 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s) && iv_clean_phone.getVisibility() == View.GONE) {
-                    iv_clean_phone.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(s) && ivCleanPhone.getVisibility() == View.GONE) {
+                    ivCleanPhone.setVisibility(View.VISIBLE);
                 } else if (TextUtils.isEmpty(s)) {
-                    iv_clean_phone.setVisibility(View.GONE);
+                    ivCleanPhone.setVisibility(View.GONE);
                 }
             }
         });
@@ -121,10 +136,10 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s) && clean_password.getVisibility() == View.GONE) {
-                    clean_password.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(s) && ivCleanPassword.getVisibility() == View.GONE) {
+                    ivCleanPassword.setVisibility(View.VISIBLE);
                 } else if (TextUtils.isEmpty(s)) {
-                    clean_password.setVisibility(View.GONE);
+                    ivCleanPassword.setVisibility(View.GONE);
                 }
                 if (s.toString().isEmpty())
                     return;
@@ -146,6 +161,7 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
     public void loginSuccess() {
         hideSoftInput();
         showToast("登录成功");
+        tvUsername.setText(editUsername.getText().toString());
         progressBar.setVisibility(View.GONE);
         start(HomeFragment.newInstance(), ISupportFragment.SINGLETASK);
     }

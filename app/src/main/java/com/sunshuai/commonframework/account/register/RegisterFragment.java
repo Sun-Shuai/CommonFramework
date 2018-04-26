@@ -42,29 +42,46 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
     @BindView(R.id.edit_password)
     EditText editPassword;
     @BindView(R.id.edit_password_again)
-    EditText editPassword_again;
+    EditText editPasswordAgain;
     @BindView(R.id.pb_loading)
     ProgressBar progressBar;
     @BindView(R.id.body)
     View body;
     @BindView(R.id.iv_clean_phone)
-    ImageView iv_clean_phone;
+    ImageView ivCleanPhone;
     @BindView(R.id.iv_clean_password)
-    ImageView clean_password;
+    ImageView ivCleanPassword;
+    @BindView(R.id.iv_clean_password_again)
+    ImageView ivCleanPasswordAgain;
 
-    @OnClick(R.id.btn_register)
-    public void onClick() {
-        // TODO: 2018/4/24 自定义用户名和密码规则
-        if (TextUtils.isEmpty(editUsername.getText().toString())) {
-            showToast("用户名不能为空");
-        } else {
-            if (editPassword.getText().toString().equals(editPassword_again.getText().toString())) {
-                progressBar.setVisibility(View.VISIBLE);
-                getPresenter().register(editUsername.getText().toString(), editPassword.getText().toString());
-            } else {
-                showToast("两次密码输入不一致");
-            }
+    @OnClick({R.id.btn_register, R.id.iv_clean_phone, R.id.iv_clean_password, R.id.iv_clean_password_again})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_register:
+                // TODO: 2018/4/24 自定义用户名和密码规则
+                if (TextUtils.isEmpty(editUsername.getText().toString())) {
+                    showToast("用户名不能为空");
+                } else {
+                    if (editPassword.getText().toString().equals(editPasswordAgain.getText().toString())) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        getPresenter().register(editUsername.getText().toString(), editPassword.getText().toString());
+                    } else {
+                        showToast("两次密码输入不一致");
+                    }
+                }
+                break;
+            case R.id.iv_clean_phone:
+                editUsername.setText("");
+                break;
+            case R.id.iv_clean_password:
+                editPassword.setText("");
+                break;
+            case R.id.iv_clean_password_again:
+                editPasswordAgain.setText("");
+                break;
+            default:
         }
+
     }
 
 
@@ -100,10 +117,10 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s) && iv_clean_phone.getVisibility() == View.GONE) {
-                    iv_clean_phone.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(s) && ivCleanPhone.getVisibility() == View.GONE) {
+                    ivCleanPhone.setVisibility(View.VISIBLE);
                 } else if (TextUtils.isEmpty(s)) {
-                    iv_clean_phone.setVisibility(View.GONE);
+                    ivCleanPhone.setVisibility(View.GONE);
                 }
             }
         });
@@ -120,10 +137,38 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s) && clean_password.getVisibility() == View.GONE) {
-                    clean_password.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(s) && ivCleanPassword.getVisibility() == View.GONE) {
+                    ivCleanPassword.setVisibility(View.VISIBLE);
                 } else if (TextUtils.isEmpty(s)) {
-                    clean_password.setVisibility(View.GONE);
+                    ivCleanPassword.setVisibility(View.GONE);
+                }
+                if (s.toString().isEmpty())
+                    return;
+                if (!s.toString().matches("[A-Za-z0-9]+")) {
+                    String temp = s.toString();
+                    showToast("请输入数字或字母");
+                    s.delete(temp.length() - 1, temp.length());
+                    editPassword.setSelection(s.length());
+                }
+            }
+        });
+        editPasswordAgain.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s) && ivCleanPasswordAgain.getVisibility() == View.GONE) {
+                    ivCleanPasswordAgain.setVisibility(View.VISIBLE);
+                } else if (TextUtils.isEmpty(s)) {
+                    ivCleanPasswordAgain.setVisibility(View.GONE);
                 }
                 if (s.toString().isEmpty())
                     return;

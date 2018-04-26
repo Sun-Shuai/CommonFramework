@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.sunshuai.commonframework.R;
+import com.sunshuai.commonframework.account.login.LoginFragment;
 import com.sunshuai.commonframework.base.BaseFragment;
 import com.sunshuai.commonframework.home.HomeFragment;
 
@@ -21,16 +21,31 @@ public class SplashFragment extends BaseFragment<SplashView, SplashPresenter> im
         return new SplashFragment();
     }
 
-    @Nullable
+    private TextView tvUsername;
+
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        tvUsername = getActivity().findViewById(R.id.tv_name);
+        Logger.e(String.valueOf(tvUsername == null));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startWithPop(HomeFragment.newInstance());
+                getPresenter().checkLogin();
             }
         }, delayMills);
-        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void loadUserInfo(String username) {
+        tvUsername.setText(username);
+        startWithPop(HomeFragment.newInstance());
+    }
+
+    @Override
+    public void goLogin() {
+        startWithPop(LoginFragment.newInstance());
     }
 
     @Override

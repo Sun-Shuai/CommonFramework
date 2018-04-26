@@ -9,8 +9,14 @@ import android.content.SharedPreferences;
 public class SPManager {
 
     private static final String SP_NAME = "sp_date";
-    SharedPreferences sp;
-    SharedPreferences.Editor editor;
+
+
+    private static final String KEY_ISFIRSTENTER = "isFirstEnter";
+    private static final String KEY_LOGINED_USERNAME = "loginedUsername";
+
+
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
     private static volatile SPManager instance;
 
     private SPManager(Context context) {
@@ -32,11 +38,20 @@ public class SPManager {
 
 
     public boolean isFirstEnter() {
-        return sp.getBoolean("isFirstEnter", true);
+        return sp.getBoolean(KEY_ISFIRSTENTER, true);
     }
 
     public void setFirstEnter(boolean isFirst) {
-        editor.putBoolean("isFirstEnter", isFirst);
+        editor.putBoolean(KEY_ISFIRSTENTER, isFirst);
         editor.apply();
+    }
+
+    public void saveLoginInfo(String username) {
+        editor.putString(KEY_LOGINED_USERNAME, username);
+        editor.apply();
+    }
+
+    public String getLoginInfo() {
+        return sp.getString(KEY_LOGINED_USERNAME, "");
     }
 }

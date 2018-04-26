@@ -1,5 +1,6 @@
 package com.sunshuai.commonframework;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -99,6 +100,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         }
 
+    }
+
+    public void setUsername(String username) {
+        this.txtName.setText(username);
+    }
+
+    public void setUserIcon(Drawable background) {
+        this.imageIcon.setBackground(background);
     }
 
 
