@@ -27,7 +27,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>> extends MvpFragment<V, P> implements ISupportFragment {
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
-    protected FragmentActivity _mActivity;
+    protected FragmentActivity fragmentActivity;
     protected OnFragmentOpenDrawerListener mOpenDraweListener;
 
 
@@ -64,22 +64,28 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
         return mDelegate.onCreateAnimation(transit, enter, nextAnim);
     }
 
-
-    protected void initToolbarNav(Toolbar toolbar) {
-        initToolbarNav(toolbar, false);
-    }
-
-    protected void initToolbarNav(Toolbar toolbar, boolean isHome) {
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOpenDraweListener != null) {
-                    mOpenDraweListener.onOpenDrawer();
+    protected void initToolbarNav(Toolbar toolbar, boolean isBack) {
+        if (isBack) {
+            toolbar.setNavigationIcon(R.drawable.ic_back);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    fragmentActivity.onBackPressed();
                 }
-            }
-        });
+            });
+        } else {
+            toolbar.setNavigationIcon(R.drawable.ic_menu_white);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOpenDraweListener != null) {
+                        mOpenDraweListener.onOpenDrawer();
+                    }
+                }
+            });
+        }
     }
+
 
     @Override
     public SupportFragmentDelegate getSupportDelegate() {
@@ -95,7 +101,7 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mDelegate.onAttach(activity);
-        _mActivity = mDelegate.getActivity();
+        fragmentActivity = mDelegate.getActivity();
         if (activity instanceof OnFragmentOpenDrawerListener) {
             mOpenDraweListener = (OnFragmentOpenDrawerListener) activity;
         }

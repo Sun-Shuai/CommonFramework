@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".home.HomeFragment">
+    tools:context=".account.login.LoginFragment">
 
     <ImageView
         android:id="@+id/close"
@@ -146,7 +146,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_btn_login_selected"
+            android:background="@drawable/bg_btn_login_register"
             android:text="登录"
             android:textColor="@color/white"
             android:textSize="18dp" />

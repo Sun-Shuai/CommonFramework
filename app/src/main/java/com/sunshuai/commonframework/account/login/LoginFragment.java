@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.sunshuai.commonframework.R;
+import com.sunshuai.commonframework.account.KeyboardWatcher;
 import com.sunshuai.commonframework.account.register.RegisterFragment;
 import com.sunshuai.commonframework.base.BaseFragment;
 import com.sunshuai.commonframework.home.HomeFragment;
@@ -45,12 +46,8 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
     ImageView iv_clean_phone;
     @BindView(R.id.iv_clean_password)
     ImageView clean_password;
-    @BindView(R.id.service)
-    View service;
     @BindView(R.id.body)
     View body;
-    @BindView(R.id.root)
-    View root;
 
 
     @OnClick({R.id.btn_login, R.id.txt_regist, R.id.close, R.id.iv_clean_phone, R.id.iv_clean_password})
@@ -70,7 +67,7 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
                 }
                 break;
             case R.id.txt_regist:
-                start(RegisterFragment.newInstance());
+                start(RegisterFragment.newInstance(), SINGLETASK);
                 break;
             case R.id.iv_clean_phone:
                 editUsername.setText("");

@@ -10,18 +10,15 @@ import com.sunshuai.commonframework.mvpmodel.database.DatabaseImpl;
 public class RegisterPresenter extends MvpBasePresenter<RegisterView> {
 
     public void register(String username,String password){
-        getView().showLoading();
         DatabaseImpl.getInstance().register(username, password, new Database.Callback() {
             @Override
             public void onSuccess() {
-                getView().hideLoading();
-                getView().showSuccessMsg();
+                getView().registerSuccess();
             }
 
             @Override
             public void onFailed(String reason) {
-                getView().hideLoading();
-                getView().showFailedMsg(reason);
+                getView().registerFailed(reason);
             }
         });
     }

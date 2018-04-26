@@ -8,9 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.base.BaseFragment;
 
@@ -31,7 +29,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         super.initView();
 
         toolbar.setTitle("主界面");
-        initToolbarNav(toolbar, true);
+        initToolbarNav(toolbar, false);
         toolbar.inflateMenu(R.menu.home);
         toolbar.setOnMenuItemClickListener(this);
 
@@ -65,7 +63,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_home:
-                final PopupMenu popupMenu = new PopupMenu(_mActivity, toolbar, GravityCompat.END);
+                final PopupMenu popupMenu = new PopupMenu(fragmentActivity, toolbar, GravityCompat.END);
                 popupMenu.inflate(R.menu.home_pop);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
