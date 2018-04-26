@@ -27,11 +27,11 @@ public class SplashFragment extends BaseFragment<SplashView, SplashPresenter> im
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        tvUsername = getActivity().findViewById(R.id.tv_name);
-        Logger.e(String.valueOf(tvUsername == null));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                tvUsername = getActivity().findViewById(R.id.tv_name);
+                Logger.e(String.valueOf(tvUsername == null));
                 getPresenter().checkLogin();
             }
         }, delayMills);
