@@ -21,7 +21,7 @@ import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 
-public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>> extends MvpActivity<V, P> implements ISupportActivity{
+public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>> extends MvpActivity<V, P> implements ISupportActivity {
 
     protected Unbinder mBinder;
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);

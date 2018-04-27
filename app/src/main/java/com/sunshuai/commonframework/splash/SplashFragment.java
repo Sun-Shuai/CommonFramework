@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.account.login.LoginFragment;
 import com.sunshuai.commonframework.base.BaseFragment;
@@ -21,8 +20,6 @@ public class SplashFragment extends BaseFragment<SplashView, SplashPresenter> im
         return new SplashFragment();
     }
 
-    private TextView tvUsername;
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -30,8 +27,6 @@ public class SplashFragment extends BaseFragment<SplashView, SplashPresenter> im
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                tvUsername = getActivity().findViewById(R.id.tv_name);
-                Logger.e(String.valueOf(tvUsername == null));
                 getPresenter().checkLogin();
             }
         }, delayMills);
@@ -39,6 +34,7 @@ public class SplashFragment extends BaseFragment<SplashView, SplashPresenter> im
 
     @Override
     public void loadUserInfo(String username) {
+        TextView tvUsername = getActivity().findViewById(R.id.tv_name);
         tvUsername.setText(username);
         startWithPop(HomeFragment.newInstance());
     }
