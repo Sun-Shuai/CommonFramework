@@ -2,7 +2,6 @@ package com.sunshuai.commonframework.account.information;
 
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
-import com.orhanobut.logger.Logger;
 import com.sunshuai.commonframework.MyApplication;
 import com.sunshuai.commonframework.mvpmodel.database.DatabaseManager;
 import com.sunshuai.commonframework.mvpmodel.sharedpreferences.SPManager;

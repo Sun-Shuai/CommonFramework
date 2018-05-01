@@ -3,13 +3,8 @@ package com.sunshuai.commonframework.account.information;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
@@ -54,9 +49,10 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
         return new InfoFragment();
     }
 
+
     @Override
-    protected void initView() {
-        super.initView();
+    protected void initOnCreateView() {
+        super.initOnCreateView();
         toolbar.setTitle("个人信息");
         initToolbarNav(toolbar, true);
         circleImageView = getActivity().findViewById(R.id.img_nav);

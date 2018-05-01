@@ -39,25 +39,18 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, view);
-        initVariable();
-        initView();
-        loadData();
+        initOnCreateView();
         return view;
+    }
+
+    protected void initOnCreateView() {
     }
 
     protected abstract int getLayoutId();
 
-    protected void initVariable() {
-    }
-
-    protected void initView() {
-    }
-
-    protected void loadData() {
-    }
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
@@ -113,6 +106,7 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
         super.onActivityCreated(savedInstanceState);
         mDelegate.onActivityCreated(savedInstanceState);
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

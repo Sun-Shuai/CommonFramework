@@ -2,6 +2,7 @@ package com.sunshuai.commonframework.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -37,8 +38,8 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     NavigationView navigationView;
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         ISupportFragment fragment = findFragment(SplashFragment.class);
         if (fragment == null) {
             loadRootFragment(R.id.fl_container, SplashFragment.newInstance());

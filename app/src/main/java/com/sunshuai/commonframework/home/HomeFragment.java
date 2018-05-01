@@ -23,17 +23,13 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
 
 
     @Override
-    protected void initView() {
-        super.initView();
-
+    protected void initOnCreateView() {
+        super.initOnCreateView();
         toolbar.setTitle("主界面");
         initToolbarNav(toolbar, false);
         toolbar.inflateMenu(R.menu.home);
         toolbar.setOnMenuItemClickListener(this);
-
-
     }
-
 
     @Override
     protected int getLayoutId() {

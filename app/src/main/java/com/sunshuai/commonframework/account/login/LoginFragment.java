@@ -89,22 +89,17 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
 
 
     @Override
-    protected void initVariable() {
-        super.initVariable();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         keyboardWatcher = new KeyboardWatcher(getActivity().findViewById(Window.ID_ANDROID_CONTENT));
         keyboardWatcher.addSoftKeyboardStateListener(this);
         screenHeight = this.getResources().getDisplayMetrics().heightPixels; //获取屏幕高度
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         tvUsername = getActivity().findViewById(R.id.tv_name);
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void initOnCreateView() {
+        super.initOnCreateView();
         editUsername.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

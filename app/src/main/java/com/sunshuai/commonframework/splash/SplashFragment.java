@@ -24,7 +24,6 @@ public class SplashFragment extends BaseFragment<SplashView, SplashPresenter> im
         return new SplashFragment();
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

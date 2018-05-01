@@ -3,7 +3,9 @@ package com.sunshuai.commonframework.account.register;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -90,16 +92,16 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
     }
 
     @Override
-    protected void initVariable() {
-        super.initVariable();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         keyboardWatcher = new KeyboardWatcher(getActivity().findViewById(Window.ID_ANDROID_CONTENT));
         keyboardWatcher.addSoftKeyboardStateListener(this);
         screenHeight = this.getResources().getDisplayMetrics().heightPixels; //获取屏幕高度
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void initOnCreateView() {
+        super.initOnCreateView();
         toolbar.setTitle("注册");
         initToolbarNav(toolbar, true);
         setFragmentAnimator(new DefaultHorizontalAnimator());

@@ -42,11 +42,8 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         setContentView(getLayoutId());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mDelegate.onCreate(savedInstanceState);
-
-        initVariable();
-        initView();
-        loadData();
     }
+
 
     @Override
     protected void onDestroy() {
@@ -59,17 +56,6 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
     public void setContentView(int layoutResId) {
         super.setContentView(layoutResId);
         mBinder = ButterKnife.bind(this);
-    }
-
-    protected void initVariable() {
-    }
-
-
-    protected void initView() {
-    }
-
-
-    protected void loadData() {
     }
 
     protected abstract int getLayoutId();
