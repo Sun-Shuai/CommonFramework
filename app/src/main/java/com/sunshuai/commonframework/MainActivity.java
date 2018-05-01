@@ -65,6 +65,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 drawerLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        // TODO: 2018/4/27 如果已经登录，跳转到个人中心 
                         start(LoginFragment.newInstance(), ISupportFragment.SINGLETASK);
                     }
                 }, 250);

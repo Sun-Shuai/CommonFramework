@@ -5,6 +5,7 @@ import android.app.Application;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.squareup.leakcanary.LeakCanary;
 import com.sunshuai.commonframework.bean.MyObjectBox;
 
 import io.objectbox.BoxStore;
@@ -25,6 +26,7 @@ public class MyApplication extends Application {
         initObjectBox();
         initLogger();
         initStackView();
+        initLeakCanary();
     }
 
     public static MyApplication getInstance() {
@@ -60,5 +62,12 @@ public class MyApplication extends Application {
                         .tag("Logger")
                         .build())
         );
+    }
+
+    private void initLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 }
