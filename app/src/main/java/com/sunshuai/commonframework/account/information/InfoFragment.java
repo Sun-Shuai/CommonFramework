@@ -60,6 +60,11 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
         toolbar.setTitle("个人信息");
         initToolbarNav(toolbar, true);
         circleImageView = getActivity().findViewById(R.id.img_nav);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         getPresenter().loadUserIcon();
     }
 

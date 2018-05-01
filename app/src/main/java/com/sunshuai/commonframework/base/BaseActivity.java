@@ -43,11 +43,6 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mDelegate.onCreate(savedInstanceState);
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         initVariable();
         initView();
         loadData();

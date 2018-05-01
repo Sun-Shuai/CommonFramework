@@ -42,15 +42,10 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, view);
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         initVariable();
         initView();
         loadData();
+        return view;
     }
 
     protected abstract int getLayoutId();

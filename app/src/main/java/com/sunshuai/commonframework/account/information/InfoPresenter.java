@@ -17,7 +17,6 @@ public class InfoPresenter extends MvpBasePresenter<InfoView> {
         String username = SPManager.getInstance(MyApplication.getInstance().getApplicationContext()).getLoginUsername();
         String iconPath = DatabaseManager.getInstance().getIcon(username);
         if (iconPath != null) {
-            Logger.e(String.valueOf(getView() == null));
             getView().loadUserIcon(iconPath);
         }
     }
