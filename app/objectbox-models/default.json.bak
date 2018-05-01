@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:5145413283959673483",
-      "lastPropertyId": "4:9166760235273035743",
+      "lastPropertyId": "3:7846323436830797133",
       "name": "User",
       "properties": [
         {
@@ -19,10 +19,6 @@
         {
           "id": "3:7846323436830797133",
           "name": "password"
-        },
-        {
-          "id": "4:9166760235273035743",
-          "name": "iconPath"
         }
       ],
       "relations": []

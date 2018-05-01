@@ -14,8 +14,10 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
         DatabaseManager.getInstance().login(username, password, new DatabaseManager.Callback() {
             @Override
             public void onSuccess() {
-                SPManager.getInstance(MyApplication.getInstance().getApplicationContext()).saveLoginInfo(username);
-                getView().loginSuccess();
+                SPManager.getInstance(MyApplication.getInstance().getApplicationContext()).setLogined(true);
+                SPManager.getInstance(MyApplication.getInstance().getApplicationContext()).saveLoginUsername(username);
+                String iconPath = DatabaseManager.getInstance().getIcon(username);
+                getView().loginSuccess(iconPath);
             }
 
             @Override

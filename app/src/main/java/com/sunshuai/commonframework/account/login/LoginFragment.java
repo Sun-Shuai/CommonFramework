@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.sunshuai.commonframework.MyApplication;
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.account.register.RegisterFragment;
 import com.sunshuai.commonframework.base.BaseFragment;
@@ -26,7 +28,7 @@ import com.sunshuai.commonframework.widget.DrawableTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import me.yokeyword.fragmentation.ISupportFragment;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> implements LoginView, KeyboardWatcher.SoftKeyboardStateListener {
 
@@ -158,12 +160,15 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
     }
 
     @Override
-    public void loginSuccess() {
+    public void loginSuccess(String iconPath) {
         hideSoftInput();
         showToast("登录成功");
         tvUsername.setText(editUsername.getText().toString());
+        if (iconPath != null) {
+            Glide.with(MyApplication.getInstance().getApplicationContext()).load(iconPath).into((CircleImageView) (getActivity().findViewById(R.id.img_nav)));
+        }
         progressBar.setVisibility(View.GONE);
-        start(HomeFragment.newInstance(), ISupportFragment.SINGLETASK);
+        start(HomeFragment.newInstance(), SINGLETASK);
     }
 
     @Override

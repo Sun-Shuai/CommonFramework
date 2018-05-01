@@ -12,8 +12,9 @@ public class User {
     private long id;
     private String username;
     private String password;
+    private String iconPath;
 
-    public User(){
+    public User() {
     }
 
     public User(String username, String password) {
@@ -43,5 +44,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public String getIconPath() {
+        return iconPath;
+    }
+
+    public void setIconPath(String iconPath) {
+        this.iconPath = iconPath;
     }
 }

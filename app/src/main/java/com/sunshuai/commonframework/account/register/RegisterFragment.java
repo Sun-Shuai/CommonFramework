@@ -16,9 +16,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.sunshuai.commonframework.R;
-import com.sunshuai.commonframework.utils.KeyboardWatcher;
 import com.sunshuai.commonframework.account.login.LoginFragment;
 import com.sunshuai.commonframework.base.BaseFragment;
+import com.sunshuai.commonframework.utils.KeyboardWatcher;
 import com.sunshuai.commonframework.widget.DrawableTextView;
 
 import butterknife.BindView;

@@ -1,6 +1,5 @@
-package com.sunshuai.commonframework;
+package com.sunshuai.commonframework.main;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -9,12 +8,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
-import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
+import com.sunshuai.commonframework.R;
+import com.sunshuai.commonframework.account.information.InfoFragment;
 import com.sunshuai.commonframework.account.login.LoginFragment;
 import com.sunshuai.commonframework.base.BaseActivity;
 import com.sunshuai.commonframework.base.BaseFragment;
@@ -24,11 +21,13 @@ import com.sunshuai.commonframework.splash.SplashFragment;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
 
+import static me.yokeyword.fragmentation.ISupportFragment.SINGLETASK;
+
 /**
  * Created by sunshuai on 2018/4/24
  */
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, BaseFragment.OnFragmentOpenDrawerListener {
+public class MainActivity extends BaseActivity<MainView, MainPresenter> implements MainView, NavigationView.OnNavigationItemSelectedListener, BaseFragment.OnFragmentOpenDrawerListener {
 
     private static final long WAIT_TIME = 2000L;
     private long TOUCH_TIME = 0;
@@ -36,9 +35,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     DrawerLayout drawerLayout;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-
-    private TextView txtName;
-    private ImageView imageIcon;
 
     @Override
     protected void initView() {
@@ -56,8 +52,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         navigationView.setCheckedItem(R.id.nav_home);
 
         LinearLayout llNavHeader = (LinearLayout) navigationView.getHeaderView(0);
-        txtName = llNavHeader.findViewById(R.id.tv_name);
-        imageIcon = llNavHeader.findViewById(R.id.img_nav);
         llNavHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,8 +59,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 drawerLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO: 2018/4/27 如果已经登录，跳转到个人中心 
-                        start(LoginFragment.newInstance(), ISupportFragment.SINGLETASK);
+                        getPresenter().checkLogin();
                     }
                 }, 250);
             }
@@ -103,19 +96,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    public void setUsername(String username) {
-        this.txtName.setText(username);
-    }
 
-    public void setUserIcon(Drawable background) {
-        this.imageIcon.setBackground(background);
-    }
-
-
-    @NonNull
     @Override
-    public MvpPresenter createPresenter() {
-        return new MvpBasePresenter();
+    public void goLogin() {
+        start(LoginFragment.newInstance(), SINGLETASK);
+    }
+
+    @Override
+    public void goInfo() {
+        start(InfoFragment.newInstance(), SINGLETASK);
     }
 
     @Override
@@ -130,11 +119,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 BaseFragment myHome = (BaseFragment) topFragment;
 
                 if (id == R.id.nav_home) {
-                    HomeFragment fragment = (HomeFragment) findFragment(HomeFragment.class);
+                    HomeFragment fragment = findFragment(HomeFragment.class);
                     Bundle newBundle = new Bundle();
                     newBundle.putString("from", "From:" + topFragment.getClass().getSimpleName());
                     fragment.putNewBundle(newBundle);
-                    myHome.start(fragment, ISupportFragment.SINGLETASK);
+                    myHome.start(fragment, SINGLETASK);
                 }
             }
         }, 300);
@@ -148,4 +137,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             drawerLayout.openDrawer(GravityCompat.START);
         }
     }
+
+    @NonNull
+    @Override
+    public MainPresenter createPresenter() {
+        return new MainPresenter();
+    }
+
 }

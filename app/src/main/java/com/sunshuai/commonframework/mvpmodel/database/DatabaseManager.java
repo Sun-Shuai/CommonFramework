@@ -58,6 +58,24 @@ public class DatabaseManager {
         }
     }
 
+    public String getIcon(String username) {
+        List<User> users = userBox.query().equal(User_.username, username).build().find();
+        if (users.size() > 0) {
+            return users.get(0).getIconPath();
+        } else {
+            return null;
+        }
+    }
+
+    public void saveIcon(String username, String iconPath) {
+        List<User> users = userBox.query().equal(User_.username, username).build().find();
+        if (users.size() > 0) {
+            User user = users.get(0);
+            user.setIconPath(iconPath);
+            userBox.put(user);
+        }
+    }
+
 
     public interface Callback {
         void onSuccess();

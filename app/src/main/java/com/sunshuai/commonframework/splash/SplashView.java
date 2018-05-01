@@ -9,6 +9,8 @@ public interface SplashView extends MvpView {
 
     void goLogin();
 
-    void loadUserInfo(String username);
+    void loadUsername(String username);
+
+    void loadUserIcon(String iconPath);
 
 }

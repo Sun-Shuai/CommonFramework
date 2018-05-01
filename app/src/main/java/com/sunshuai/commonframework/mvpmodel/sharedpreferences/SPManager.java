@@ -12,6 +12,7 @@ public class SPManager {
 
 
     private static final String KEY_ISFIRSTENTER = "isFirstEnter";
+    private static final String KEY_IS_LOGINED = "isLogined";
     private static final String KEY_LOGINED_USERNAME = "loginedUsername";
 
 
@@ -46,12 +47,21 @@ public class SPManager {
         editor.apply();
     }
 
-    public void saveLoginInfo(String username) {
+    public void saveLoginUsername(String username) {
         editor.putString(KEY_LOGINED_USERNAME, username);
         editor.apply();
     }
 
-    public String getLoginInfo() {
+    public String getLoginUsername() {
         return sp.getString(KEY_LOGINED_USERNAME, "");
+    }
+
+    public void setLogined(boolean b) {
+        editor.putBoolean(KEY_IS_LOGINED, b);
+        editor.apply();
+    }
+
+    public boolean isLogined() {
+        return sp.getBoolean(KEY_IS_LOGINED, false);
     }
 }
