@@ -1,6 +1,7 @@
 package com.sunshuai.commonframework.base;
 
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
+import com.sunshuai.commonframework.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -40,6 +42,9 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mDelegate.onCreate(savedInstanceState);
     }

@@ -81,7 +81,7 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
             UCrop.Options options = new UCrop.Options();
             options.setHideBottomControls(true);
             options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-            options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+            options.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
             Uri destination = Uri.fromFile(new File(getActivity().getExternalCacheDir(), System.currentTimeMillis() + ".jpg"));
             UCrop.of(Uri.fromFile(new File(path.get(0))), destination)
                     .withAspectRatio(1, 1)

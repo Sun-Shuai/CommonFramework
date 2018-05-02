@@ -123,17 +123,24 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         drawerLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                int id = item.getItemId();
-
                 final ISupportFragment topFragment = getTopFragment();
                 BaseFragment myHome = (BaseFragment) topFragment;
 
-                if (id == R.id.nav_home) {
-                    HomeFragment fragment = findFragment(HomeFragment.class);
-                    Bundle newBundle = new Bundle();
-                    newBundle.putString("from", "From:" + topFragment.getClass().getSimpleName());
-                    fragment.putNewBundle(newBundle);
-                    myHome.start(fragment, SINGLETASK);
+                switch (item.getItemId()) {
+
+                    case R.id.nav_home:
+                        HomeFragment fragment = findFragment(HomeFragment.class);
+                        Bundle newBundle = new Bundle();
+                        newBundle.putString("from", "From:" + topFragment.getClass().getSimpleName());
+                        fragment.putNewBundle(newBundle);
+                        myHome.start(fragment, SINGLETASK);
+                        break;
+
+                    case R.id.nav_logout:
+                        // TODO: 2018/5/2 清除登录缓存
+                        break;
+
+                    default:
                 }
             }
         }, 300);
