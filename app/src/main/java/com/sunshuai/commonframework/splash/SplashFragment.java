@@ -18,7 +18,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SplashFragment extends BaseFragment<SplashView, SplashPresenter> implements SplashView {
 
-    private static final long delayMills = 2000;
+    private static final long delayMills = 1000;
 
     public static SplashFragment newInstance() {
         return new SplashFragment();
@@ -45,8 +45,8 @@ public class SplashFragment extends BaseFragment<SplashView, SplashPresenter> im
 
     @Override
     public void loadUserIcon(String iconPath) {
-        CircleImageView circleImageView = getActivity().findViewById(R.id.img_nav);
-        Glide.with(MyApplication.getInstance().getApplicationContext()).load(iconPath).into(circleImageView);
+        CircleImageView circleImageView = getActivity().findViewById(R.id.civ_user_icon);
+        Glide.with(getActivity().getApplicationContext()).load(iconPath).into(circleImageView);
     }
 
     @Override

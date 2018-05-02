@@ -11,7 +11,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.account.information.InfoFragment;
 import com.sunshuai.commonframework.account.login.LoginFragment;
@@ -21,6 +23,7 @@ import com.sunshuai.commonframework.home.HomeFragment;
 import com.sunshuai.commonframework.splash.SplashFragment;
 
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.yokeyword.fragmentation.ISupportFragment;
 
 import static me.yokeyword.fragmentation.ISupportFragment.SINGLETASK;
@@ -33,6 +36,10 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
 
     private static final long WAIT_TIME = 2000L;
     private long TOUCH_TIME = 0;
+
+    private CircleImageView cIvUserIcon;
+    private TextView tvUsername;
+
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     @BindView(R.id.nav_view)
@@ -62,6 +69,8 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         }
 
         LinearLayout llNavHeader = (LinearLayout) navigationView.getHeaderView(0);
+        cIvUserIcon = llNavHeader.findViewById(R.id.civ_user_icon);
+        tvUsername = llNavHeader.findViewById(R.id.tv_name);
         llNavHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +127,13 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     }
 
     @Override
+    public void logoutSuccess() {
+        tvUsername.setText("未登录");
+        Glide.with(getApplicationContext()).load(getResources().getDrawable(R.drawable.ic_user_icon)).into(cIvUserIcon);
+        start(LoginFragment.newInstance(), SINGLETASK);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
         drawerLayout.postDelayed(new Runnable() {
@@ -137,7 +153,8 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
                         break;
 
                     case R.id.nav_logout:
-                        // TODO: 2018/5/2 清除登录缓存
+                        // TODO: 2018/5/2 dialog
+                        getPresenter().logout();
                         break;
 
                     default:

@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.orhanobut.logger.Logger;
 import com.sunshuai.commonframework.MyApplication;
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.base.BaseFragment;
@@ -55,7 +54,7 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
         super.initOnCreateView();
         toolbar.setTitle("个人信息");
         initToolbarNav(toolbar, true);
-        circleImageView = getActivity().findViewById(R.id.img_nav);
+        circleImageView = getActivity().findViewById(R.id.civ_user_icon);
     }
 
     @Override
@@ -77,7 +76,6 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
         if (requestCode == REQUEST_CODE_SECECT_PHOTO && resultCode == RESULT_OK) {
             //选择图片返回
             List<String> path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-            Logger.e(path.get(0));
             UCrop.Options options = new UCrop.Options();
             options.setHideBottomControls(true);
             options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
@@ -91,7 +89,7 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
         if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
             final Uri resultUri = UCrop.getOutput(data);
             Glide.with(this).load(resultUri).into(cIVUserIcon);     //图片生命周期为fragment
-            Glide.with(MyApplication.getInstance().getApplicationContext()).load(resultUri).into(circleImageView);    //图片生命周期到应用结束
+            Glide.with(getActivity().getApplicationContext()).load(resultUri).into(circleImageView);    //图片生命周期到应用结束
             getPresenter().saveUserIcon(resultUri.getPath());
         }
 

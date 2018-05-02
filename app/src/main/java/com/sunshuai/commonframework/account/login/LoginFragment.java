@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.sunshuai.commonframework.MyApplication;
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.account.register.RegisterFragment;
@@ -29,6 +30,7 @@ import com.sunshuai.commonframework.widget.DrawableTextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.yokeyword.fragmentation.SupportHelper;
 
 public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> implements LoginView, KeyboardWatcher.SoftKeyboardStateListener {
 
@@ -160,10 +162,15 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
         showToast("登录成功");
         tvUsername.setText(editUsername.getText().toString());
         if (iconPath != null) {
-            Glide.with(MyApplication.getInstance().getApplicationContext()).load(iconPath).into((CircleImageView) (getActivity().findViewById(R.id.img_nav)));
+            Glide.with(getActivity().getApplicationContext()).load(iconPath).into((CircleImageView) (getActivity().findViewById(R.id.civ_user_icon)));
         }
         progressBar.setVisibility(View.GONE);
-        start(HomeFragment.newInstance(), SINGLETASK);
+        HomeFragment fragment = SupportHelper.findFragment(getFragmentManager(), HomeFragment.class);
+        if (fragment == null) {
+            startWithPop(HomeFragment.newInstance());
+        } else {
+            start(HomeFragment.newInstance(), SINGLETASK);
+        }
     }
 
     @Override
@@ -215,6 +222,8 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
         mAnimatorTranslateY.start();
         zoomOut(logo);
     }
+
+    // TODO: 2018/5/2 适配不同分辨率
 
     public void zoomIn(final View view, float dist) {
         view.setPivotY(view.getHeight());
