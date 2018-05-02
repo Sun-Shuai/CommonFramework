@@ -3,6 +3,7 @@ package com.sunshuai.commonframework.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -51,6 +52,14 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
 
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
         navigationView.setCheckedItem(R.id.nav_home);
+
+        // 隐藏NavigationView的滚动条
+        if (navigationView != null) {
+            NavigationMenuView navigationMenuView = (NavigationMenuView) navigationView.getChildAt(0);
+            if (navigationMenuView != null) {
+                navigationMenuView.setVerticalScrollBarEnabled(false);
+            }
+        }
 
         LinearLayout llNavHeader = (LinearLayout) navigationView.getHeaderView(0);
         llNavHeader.setOnClickListener(new View.OnClickListener() {
