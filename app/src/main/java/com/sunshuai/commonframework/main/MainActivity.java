@@ -126,12 +126,6 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         start(InfoFragment.newInstance(), SINGLETASK);
     }
 
-    @Override
-    public void logoutSuccess() {
-        tvUsername.setText("未登录");
-        Glide.with(getApplicationContext()).load(getResources().getDrawable(R.drawable.ic_user_icon)).into(cIvUserIcon);
-        start(LoginFragment.newInstance(), SINGLETASK);
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
@@ -155,6 +149,11 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
                     case R.id.nav_logout:
                         // TODO: 2018/5/2 dialog
                         getPresenter().logout();
+                        tvUsername.setText("未登录");
+                        Glide.with(getApplicationContext()).load(getResources().getDrawable(R.drawable.ic_user_icon)).into(cIvUserIcon);
+                        popTo(HomeFragment.class, false);
+                        myHome.start(LoginFragment.newInstance(),SINGLETASK);
+
                         break;
 
                     default:

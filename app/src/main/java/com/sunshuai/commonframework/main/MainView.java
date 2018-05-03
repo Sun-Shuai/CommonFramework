@@ -11,5 +11,4 @@ public interface MainView extends MvpView{
 
     void goInfo();
 
-    void logoutSuccess();
 }

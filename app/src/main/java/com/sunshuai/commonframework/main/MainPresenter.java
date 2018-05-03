@@ -19,6 +19,5 @@ public class MainPresenter extends MvpBasePresenter<MainView> {
 
     void logout() {
         SPManager.getInstance(MyApplication.getInstance().getApplicationContext()).setLogined(false);
-        getView().logoutSuccess();
     }
 }
