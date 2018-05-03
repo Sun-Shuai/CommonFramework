@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.sunshuai.commonframework.MyApplication;
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.base.BaseFragment;
 import com.yalantis.ucrop.UCrop;
@@ -28,7 +27,7 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
     private CircleImageView circleImageView;
 
     @BindView(R.id.civ_user_icon)
-    CircleImageView cIVUserIcon;
+    CircleImageView cIvUserIcon;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -37,6 +36,7 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
 
         switch (view.getId()) {
             case R.id.civ_user_icon:
+                // TODO: 2018/5/3 头像预览页 
                 selectPhoto();
                 break;
 
@@ -74,7 +74,6 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_SECECT_PHOTO && resultCode == RESULT_OK) {
-            //选择图片返回
             List<String> path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
             UCrop.Options options = new UCrop.Options();
             options.setHideBottomControls(true);
@@ -88,7 +87,7 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
         }
         if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
             final Uri resultUri = UCrop.getOutput(data);
-            Glide.with(this).load(resultUri).into(cIVUserIcon);     //图片生命周期为fragment
+            Glide.with(this).load(resultUri).into(cIvUserIcon);     //图片生命周期为fragment
             Glide.with(getActivity().getApplicationContext()).load(resultUri).into(circleImageView);    //图片生命周期到应用结束
             getPresenter().saveUserIcon(resultUri.getPath());
         }
@@ -98,7 +97,7 @@ public class InfoFragment extends BaseFragment<InfoView, InfoPresenter> implemen
 
     @Override
     public void loadUserIcon(String iconPath) {
-        Glide.with(this).load(iconPath).into(cIVUserIcon);
+        Glide.with(this).load(iconPath).into(cIvUserIcon);
     }
 
 

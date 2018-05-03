@@ -1,15 +1,20 @@
 package com.sunshuai.commonframework.main;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -152,7 +157,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
                         tvUsername.setText("未登录");
                         Glide.with(getApplicationContext()).load(getResources().getDrawable(R.drawable.ic_user_icon)).into(cIvUserIcon);
                         popTo(HomeFragment.class, false);
-                        myHome.start(LoginFragment.newInstance(),SINGLETASK);
+                        myHome.start(LoginFragment.newInstance(), SINGLETASK);
 
                         break;
 

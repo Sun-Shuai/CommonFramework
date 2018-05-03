@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.sunshuai.commonframework.MyApplication;
 import com.sunshuai.commonframework.R;
 import com.sunshuai.commonframework.account.login.LoginFragment;
 import com.sunshuai.commonframework.base.BaseFragment;
@@ -23,7 +22,6 @@ public class SplashFragment extends BaseFragment<SplashView, SplashPresenter> im
     public static SplashFragment newInstance() {
         return new SplashFragment();
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
